@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "",
-  "main": "app/index.jsx",
+  "main": "mkdocs_airflow_graph/js/app/index.jsx",
   "scripts": {
     "build": "webpack"
   },

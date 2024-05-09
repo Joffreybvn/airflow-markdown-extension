@@ -1,186 +1,107 @@
+/*!
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import axios, { AxiosResponse } from "axios";
 import camelcaseKeys from "camelcase-keys";
 
-interface Props {
-  dagIds?: string[];
-  enabled?: boolean;
-}
+import useClearRun from "./useClearRun";
+import useQueueRun from "./useQueueRun";
+import useMarkFailedRun from "./useMarkFailedRun";
+import useMarkSuccessRun from "./useMarkSuccessRun";
+import useClearTask from "./useClearTask";
+import useMarkFailedTask from "./useMarkFailedTask";
+import useMarkSuccessTask from "./useMarkSuccessTask";
+import useExtraLinks from "./useExtraLinks";
+import useMarkTaskDryRun from "./useMarkTaskDryRun";
+import useGraphData from "./useGraphData";
+import useGridData from "./useGridData";
+import useMappedInstances from "./useMappedInstances";
+import useDatasets from "./useDatasets";
+import useDatasetsSummary from "./useDatasetsSummary";
+import useDataset from "./useDataset";
+import useDatasetDependencies from "./useDatasetDependencies";
+import useDatasetEvents from "./useDatasetEvents";
+import useSetDagRunNote from "./useSetDagRunNote";
+import useSetTaskInstanceNote from "./useSetTaskInstanceNote";
+import useUpstreamDatasetEvents from "./useUpstreamDatasetEvents";
+import useTaskInstance from "./useTaskInstance";
+import useDag from "./useDag";
+import useDagCode from "./useDagCode";
+import useDagDetails from "./useDagDetails";
+import useHealth from "./useHealth";
+import usePools from "./usePools";
+import useDags from "./useDags";
+import useDagRuns from "./useDagRuns";
+import useHistoricalMetricsData from "./useHistoricalMetricsData";
+import { useTaskXcomEntry, useTaskXcomCollection } from "./useTaskXcom";
+import useEventLogs from "./useEventLogs";
+import useCalendarData from "./useCalendarData";
+import useCreateDatasetEvent from "./useCreateDatasetEvent";
+import useRenderedK8s from "./useRenderedK8s";
 
-function useDatasets({ dagIds, enabled = true }: Props) {
-  return camelcaseKeys({
-      "data": {
-        "datasets": [],
-        "total_entries": 209
-      }},
-      { deep: true }
-  )
-}
+axios.interceptors.request.use((config) => {
+  config.paramsSerializer = {
+    indexes: null,
+  };
+  return config;
+});
 
-function useGraphData() {
-  return camelcaseKeys({
-      "data": {
-          "arrange": "LR",
-          "edges": [
-              {
-                  "source_id": "get_failed_jobs",
-                  "target_id": "process_failed_airflow_jobs_response"
-              },
-              {
-                  "source_id": "process_failed_airflow_jobs_response",
-                  "target_id": "export_failed_incident_to_table"
-              }
-          ],
-          "nodes": {
-              "children": [
-                  {
-                      "id": "export_failed_incident_to_table",
-                      "value": {
-                          "label": "export_failed_incident_to_table",
-                          "labelStyle": "fill:#000;",
-                          "rx": 5,
-                          "ry": 5,
-                          "style": "fill:#cdaaed;"
-                      }
-                  },
-                  {
-                      "id": "get_failed_jobs",
-                      "value": {
-                          "label": "get_failed_jobs",
-                          "labelStyle": "fill:#000;",
-                          "rx": 5,
-                          "ry": 5,
-                          "style": "fill:#cdaaed;"
-                      }
-                  },
-                  {
-                      "id": "process_failed_airflow_jobs_response",
-                      "value": {
-                          "label": "process_failed_airflow_jobs_response",
-                          "labelStyle": "fill:#000;",
-                          "rx": 5,
-                          "ry": 5,
-                          "style": "fill:#ffefeb;"
-                      }
-                  }
-              ],
-              "id": null,
-              "value": {
-                  "clusterLabelPos": "top",
-                  "isMapped": false,
-                  "label": null,
-                  "labelStyle": "fill:#000;",
-                  "rx": 5,
-                  "ry": 5,
-                  "style": "fill:CornflowerBlue",
-                  "tooltip": ""
-              }
-          },
-      }},
-      { deep: true }
-  )
-}
+axios.interceptors.response.use((res: AxiosResponse) =>
+  res.data ? camelcaseKeys(res.data, { deep: true }) : res
+);
 
-function useGridData() {
-  return camelcaseKeys({
-      "data": {
-          "dag_runs": [
-              {
-                  "conf": null,
-                  "conf_is_json": false,
-                  "data_interval_end": "2024-05-08T07:30:00+00:00",
-                  "data_interval_start": "2024-05-07T07:30:00+00:00",
-                  "end_date": "2024-05-08T13:04:16.530041+00:00",
-                  "execution_date": "2024-05-07T07:30:00+00:00",
-                  "external_trigger": false,
-                  "last_scheduling_decision": "2024-05-08T13:04:16.525360+00:00",
-                  "note": null,
-                  "queued_at": "2024-05-08T15:04:10.828274+00:00",
-                  "run_id": "scheduled__2024-05-07T07:30:00+00:00",
-                  "run_type": "scheduled",
-                  "start_date": "2024-05-08T13:04:10.857523+00:00",
-                  "state": "success"
-              }
-          ],
-          "groups": {
-              "children": [
-                  {
-                      "extra_links": [],
-                      "has_outlet_datasets": false,
-                      "id": "get_failed_jobs",
-                      "instances": [
-                          {
-                              "end_date": "2024-05-08T13:04:12.684367+00:00",
-                              "note": null,
-                              "queued_dttm": "2024-05-08T13:04:10.952821+00:00",
-                              "run_id": "scheduled__2024-05-07T07:30:00+00:00",
-                              "start_date": "2024-05-08T13:04:12.007853+00:00",
-                              "state": "success",
-                              "task_id": "get_failed_jobs",
-                              "try_number": 1
-                          }
-                      ],
-                      "is_mapped": false,
-                      "label": "get_failed_jobs",
-                      "operator": "SQLExecuteQueryOperator",
-                      "trigger_rule": "all_success"
-                  },
-                  {
-                      "extra_links": [],
-                      "has_outlet_datasets": false,
-                      "id": "process_failed_airflow_jobs_response",
-                      "instances": [
-                          {
-                              "end_date": "2024-05-08T13:04:14.517385+00:00",
-                              "note": null,
-                              "queued_dttm": "2024-05-08T13:04:12.944023+00:00",
-                              "run_id": "scheduled__2024-05-07T07:30:00+00:00",
-                              "start_date": "2024-05-08T13:04:14.011514+00:00",
-                              "state": "success",
-                              "task_id": "process_failed_airflow_jobs_response",
-                              "try_number": 1
-                          }
-                      ],
-                      "is_mapped": false,
-                      "label": "process_failed_airflow_jobs_response",
-                      "operator": "PythonOperator",
-                      "trigger_rule": "all_success"
-                  },
-                  {
-                      "extra_links": [],
-                      "has_outlet_datasets": false,
-                      "id": "export_failed_incident_to_table",
-                      "instances": [
-                          {
-                              "end_date": "2024-05-08T13:04:16.398751+00:00",
-                              "note": null,
-                              "queued_dttm": "2024-05-08T13:04:14.733901+00:00",
-                              "run_id": "scheduled__2024-05-07T07:30:00+00:00",
-                              "start_date": "2024-05-08T13:04:15.803538+00:00",
-                              "state": "success",
-                              "task_id": "export_failed_incident_to_table",
-                              "try_number": 1
-                          }
-                      ],
-                      "is_mapped": false,
-                      "label": "export_failed_incident_to_table",
-                      "operator": "SQLExecuteQueryOperator",
-                      "trigger_rule": "all_done"
-                  }
-              ],
-              "id": null,
-              "instances": [],
-              "label": null
-          },
-          "ordering": [
-              "data_interval_end",
-              "execution_date"
-          ]
-      }},
-      { deep: true }
-  )
-}
+axios.defaults.headers.common.Accept = "application/json";
 
 export {
+  useClearRun,
+  useClearTask,
+  useDag,
+  useDagCode,
+  useDagDetails,
+  useDagRuns,
+  useDags,
+  useDataset,
   useDatasets,
+  useDatasetDependencies,
+  useDatasetEvents,
+  useDatasetsSummary,
+  useExtraLinks,
   useGraphData,
   useGridData,
+  useHealth,
+  useMappedInstances,
+  useMarkFailedRun,
+  useMarkFailedTask,
+  useMarkSuccessRun,
+  useMarkSuccessTask,
+  useMarkTaskDryRun,
+  usePools,
+  useQueueRun,
+  useSetDagRunNote,
+  useSetTaskInstanceNote,
+  useTaskInstance,
+  useUpstreamDatasetEvents,
+  useHistoricalMetricsData,
+  useTaskXcomEntry,
+  useTaskXcomCollection,
+  useEventLogs,
+  useCalendarData,
+  useCreateDatasetEvent,
+  useRenderedK8s,
 };

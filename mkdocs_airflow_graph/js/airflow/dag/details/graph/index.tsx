@@ -194,12 +194,11 @@ const Graph = ({ openGroupIds, onToggleGroups, hoveredTaskState }: Props) => {
   return (
     <Box
       ref={graphRef}
-      // height={`calc(100% - ${offsetTop}px)`}
-      className={"airflow-graph"}
+      height={`calc(100% - ${offsetTop}px)`}
       borderWidth={1}
       borderColor="gray.200"
     >
-      {(
+      {!!offsetTop && (
         <ReactFlow
           nodes={nodes}
           edges={edges}

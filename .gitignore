@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 /mkdocs_airflow_graph/js/dist/
+/.python-version

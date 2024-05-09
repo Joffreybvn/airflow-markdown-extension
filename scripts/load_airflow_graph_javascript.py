@@ -1,9 +1,16 @@
+"""
+Download Airflow javascript files related to ReactFlow / Graph view,
+and store it into 'mkdocs_airflow_graph/js/airflow.
+"""
 import os
-
+import shutil
+from logging import getLogger
 import requests
 
+logger = getLogger(__name__)
+
 remote_path = "https://raw.githubusercontent.com/apache/airflow/main/airflow/www/static/js"
-local_path = "./airflow2"
+local_path = "./mkdocs_airflow_graph/js/airflow"
 
 file_paths = [
     "/api/index.ts",
@@ -34,16 +41,19 @@ file_paths = [
     "/utils/useOffsetTop.ts"
 ]
 
+shutil.rmtree(local_path, ignore_errors=True)
+
 for file_path in file_paths:
-    print(f"Pulling '{file_path}'")
+    logger.info(f"Pulling '{file_path}'")
 
-    url: str = remote_path + file_path
-    destination: str = local_path + file_path
-    os.makedirs(os.path.dirname(destination), exist_ok=True)
+    remote_file: str = remote_path + file_path
+    local_file: str = local_path + file_path
 
-    response = requests.get(url)
+    response = requests.get(url=remote_file)
     if response.status_code != 200:
-        raise Exception(f"'{file_path}' does not exists in Github")
+        logger.warning(f"'{file_path}' does not exists in Github, file skipped.")
+        continue
 
-    with open(destination, "wb") as file:
+    os.makedirs(os.path.dirname(local_file), exist_ok=True)
+    with open(local_file, "wb") as file:
         file.write(response.content)

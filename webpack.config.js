@@ -2,21 +2,23 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const JS_DIR = path.resolve(__dirname, "./mkdocs_airflow_graph/js");
+
 module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    airflow_graph: "./app/index.jsx",
+    airflow_graph: path.resolve(JS_DIR, "./app/index.jsx"),
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(JS_DIR, './dist'),
     filename: "[name].js", // "[name].[chunkhash].js",
     chunkFilename: "[name].js", // "[name].[chunkhash].js",
   },
   resolve: {
     alias: {
       // Be sure to update aliases in tsconfig.json
-      src: path.resolve(__dirname, "airflow"),
+      src: path.resolve(JS_DIR, "./airflow"),
     },
     extensions: [".js", ".jsx", ".ts", ".tsx", ".css"],
   },
@@ -37,7 +39,7 @@ module.exports = {
       // Extract css files
       {
         test: /\.css$/,
-        include: /app/,
+        include: path.resolve(JS_DIR, "./app/"),
         exclude: /node_modules/,
         use: [
           {
