@@ -22,6 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/mkdocs_airflow_graph/js/dist/
-/mkdocs_airflow_graph/js/airflow/
+/airflow_markdown_extension/js/dist/
+/airflow_markdown_extension/js/airflow/
 /.python-version

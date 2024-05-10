@@ -8,4 +8,5 @@ graph:
 	npm run build
 
 graph-demo:
+	@echo "Visit: http://localhost:8000/demo.html"
 	cd ./mkdocs_airflow_graph/js && python -m http.server

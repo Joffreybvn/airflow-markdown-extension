@@ -2,7 +2,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const JS_DIR = path.resolve(__dirname, "./mkdocs_airflow_graph/js");
+const JS_DIR = path.resolve(__dirname, "./airflow_markdown_extension/js");
 
 module.exports = {
   mode: "development",

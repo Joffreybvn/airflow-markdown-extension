@@ -1,6 +1,6 @@
 """
 Download Airflow javascript files related to ReactFlow / Graph view,
-and store it into 'mkdocs_airflow_graph/js/airflow.
+and store it into 'airflow_markdown_extension/js/airflow.
 """
 import os
 import shutil
@@ -10,7 +10,7 @@ import requests
 logger = getLogger(__name__)
 
 remote_path = "https://raw.githubusercontent.com/apache/airflow/main/airflow/www/static/js"
-local_path = "./mkdocs_airflow_graph/js/airflow"
+local_path = "./airflow_markdown_extension/js/airflow"
 
 file_paths = [
     "/api/index.ts",
