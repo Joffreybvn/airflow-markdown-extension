@@ -51,7 +51,7 @@ for file_path in file_paths:
 
     response = requests.get(url=remote_file)
     if response.status_code != 200:
-        logger.warning(f"'{file_path}' does not exists in Github, file skipped.")
+        logger.warning(f"'{file_path}' does not exist on Github, file skipped.")
         continue
 
     os.makedirs(os.path.dirname(local_file), exist_ok=True)
