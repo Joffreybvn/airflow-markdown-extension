@@ -9,4 +9,7 @@ graph:
 
 graph-demo:
 	@echo "Visit: http://localhost:8000/demo.html"
-	cd ./airflow_markdown_extension/js && python -m http.server
+	python -m http.server
+
+lint:
+	ruff format

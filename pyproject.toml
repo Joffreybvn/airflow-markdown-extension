@@ -37,7 +37,8 @@ classifiers = [
 ]
 dependencies = [
     "Markdown >= 3.5, < 4",
-    "pymdown-extensions >= 10, < 11"
+    "pymdown-extensions >= 10, < 11",
+    "apache-airflow >= 2.9.0"
 ]
 
 [project.optional-dependencies]

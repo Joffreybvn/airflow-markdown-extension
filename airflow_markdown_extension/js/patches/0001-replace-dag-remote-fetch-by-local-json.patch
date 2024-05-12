@@ -4,13 +4,13 @@ Date: Thu, 9 May 2024 15:33:27 +0200
 Subject: [PATCH] replace DAG data remote fetch by local json loading
 
 ---
- mkdocs_airflow_graph/js/airflow/api/index.ts | 273 ++++++++++++-------
+ airflow_markdown_extension/js/airflow/api/index.ts | 273 ++++++++++++-------
  1 file changed, 176 insertions(+), 97 deletions(-)
 
-diff --git a/mkdocs_airflow_graph/js/airflow/api/index.ts b/mkdocs_airflow_graph/js/airflow/api/index.ts
+diff --git a/airflow_markdown_extension/js/airflow/api/index.ts b/airflow_markdown_extension/js/airflow/api/index.ts
 index c9bc4ed..204e76c 100644
---- a/mkdocs_airflow_graph/js/airflow/api/index.ts
-+++ b/mkdocs_airflow_graph/js/airflow/api/index.ts
+--- a/airflow_markdown_extension/js/airflow/api/index.ts
++++ b/airflow_markdown_extension/js/airflow/api/index.ts
 @@ -1,107 +1,186 @@
 -/*!
 - * Licensed to the Apache Software Foundation (ASF) under one
