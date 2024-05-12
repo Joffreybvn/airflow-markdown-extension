@@ -23,5 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 /airflow_markdown_extension/js/dist/
-/airflow_markdown_extension/js/airflow/
 /.python-version
