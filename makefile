@@ -9,4 +9,4 @@ graph:
 
 graph-demo:
 	@echo "Visit: http://localhost:8000/demo.html"
-	cd ./mkdocs_airflow_graph/js && python -m http.server
+	cd ./airflow_markdown_extension/js && python -m http.server

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-patch_directory="mkdocs_airflow_graph/js/patches"
+patch_directory="airflow_markdown_extension/js/patches"
 patch_files=()
 
 # Load patch files from the directory
