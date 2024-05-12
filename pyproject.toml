@@ -56,7 +56,7 @@ Repository = "https://github.com/joffreybvn/airflow-markdown-extension"
 [tool.ruff]
 line-length = 88
 indent-width = 4
-select = ["E", "W"]
+lint.select = ["E", "W"]
 target-version = "py39"
 
 [build-system]

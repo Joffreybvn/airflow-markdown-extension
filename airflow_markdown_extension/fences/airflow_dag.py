@@ -7,12 +7,12 @@ if TYPE_CHECKING:
 
 
 def fence_airflow_dag_format(
-        source: str,
-        language: str,
-        css_class: str,
-        options: dict,
-        md: markdown.core.Markdown,
-        **kwargs
+    source: str,
+    language: str,
+    css_class: str,
+    options: dict,
+    md: markdown.core.Markdown,
+    **kwargs,
 ) -> str:
     """Format fence into a JSON representation of an Airflow DAG."""
 

@@ -2,6 +2,7 @@
 Download Airflow javascript files related to ReactFlow / Graph view,
 and store it into 'airflow_markdown_extension/js/airflow.
 """
+
 import os
 import shutil
 from logging import getLogger
@@ -9,7 +10,9 @@ import requests
 
 logger = getLogger(__name__)
 
-remote_path = "https://raw.githubusercontent.com/apache/airflow/main/airflow/www/static/js"
+remote_path = (
+    "https://raw.githubusercontent.com/apache/airflow/main/airflow/www/static/js"
+)
 local_path = "./airflow_markdown_extension/js/airflow"
 
 file_paths = [
@@ -38,7 +41,7 @@ file_paths = [
     "/utils/graph.ts",
     "/utils/index.ts",
     "/utils/URLSearchParamWrapper.ts",
-    "/utils/useOffsetTop.ts"
+    "/utils/useOffsetTop.ts",
 ]
 
 shutil.rmtree(local_path, ignore_errors=True)
