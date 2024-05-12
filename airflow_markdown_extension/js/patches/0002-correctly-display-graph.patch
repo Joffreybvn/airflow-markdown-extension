@@ -1,11 +1,10 @@
-From 1960eba6e0f530473c32479844444200f3b6fd2b Mon Sep 17 00:00:00 2001
-From: Joffrey Bienvenu <joffrey.bienvenu@gmail.com>
-Date: Thu, 9 May 2024 15:41:27 +0200
-Subject: [PATCH] set classname + remove offsetTop condition
+From 5f80143ce714846adb911cc6e4463e373fd695a3 Mon Sep 17 00:00:00 2001
+From: Joffrey Bienvenu <joffrey.bienvenu@infrabel.be>
+Date: Sun, 12 May 2024 17:10:37 +0200
+Subject: [PATCH] correctly display graph
 
-Enable the graph to be displayed outside of the Airflow UI, by removing the `offsetTop` check (which is not defined in MkDocs). And set a fixed size to the Box div via a className, as required by ReactFlow
 ---
- airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx | 4 ++--
+ .../js/airflow/dag/details/graph/index.tsx                    | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx b/airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx
