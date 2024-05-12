@@ -1,4 +1,7 @@
 
+javascript:
+	python ./scripts/load_airflow_graph_javascript.py
+
 graph:
 	@echo "\n1/3 Downloading Airflow static javascript files..."
 	python ./scripts/load_airflow_graph_javascript.py
