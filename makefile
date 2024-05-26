@@ -8,8 +8,8 @@ graph:
 	npm run build
 
 graph-demo:
-	@echo "Visit: http://localhost:8000/demo.html"
-	python -m http.server
+	@echo "Visit: http://localhost:8000/"
+	cd ./demo && python -m http.server
 
 patch:
 	git checkout patches ./airflow_markdown_extension/js/patches/0001-replace-api-call-by-local-data.patch
