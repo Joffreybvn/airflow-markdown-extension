@@ -1,6 +1,6 @@
 [project]
 name = "airflow-markdown-extension"
-version = "0.1.0"
+version = "0.1.1"
 description = "A custom superfence for pymdown-extensions which render Airflow DAGs."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -59,6 +59,18 @@ line-length = 88
 indent-width = 4
 lint.select = ["E", "W"]
 target-version = "py39"
+
+[tool.hatch.build.targets.sdist]
+ignore-vcs = true
+include = [
+    "/airflow_markdown_extension/**.py",
+    "/airflow_markdown_extension/**/*.py",
+    "/airflow_markdown_extension/js/dist/*.css",
+    "/airflow_markdown_extension/js/dist/*.js"
+]
+
+[tool.hatch.build.targets.wheel]
+only-packages = true
 
 [build-system]
 requires = ["hatchling"]

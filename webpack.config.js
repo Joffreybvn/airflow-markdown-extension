@@ -1,6 +1,8 @@
 //webpack.config.js
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const JS_DIR = path.resolve(__dirname, "./airflow_markdown_extension/js");
 
@@ -8,12 +10,12 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    airflow_graph: path.resolve(JS_DIR, "./app/index.jsx"),
+    airflow_markdown_extension: path.resolve(JS_DIR, "./app/index.jsx"),
   },
   output: {
     path: path.resolve(JS_DIR, './dist'),
-    filename: "[name].js", // "[name].[chunkhash].js",
-    chunkFilename: "[name].js", // "[name].[chunkhash].js",
+    filename: "index.js", // "[name].[chunkhash].js",
+    chunkFilename: "index.js", // "[name].[chunkhash].js",
   },
   resolve: {
     alias: {
@@ -60,8 +62,12 @@ module.exports = {
     ]
   },
   plugins: [
-      new MiniCssExtractPlugin({
-        filename: "[name].css", // "[name].[chunkhash].css",
-      }),
-  ]
+    new MiniCssExtractPlugin({
+      filename: "index.css", // "[name].[chunkhash].css",
+    }),
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin({}), new TerserPlugin()],
+  },
 };
