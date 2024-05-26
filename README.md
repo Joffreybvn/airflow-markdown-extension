@@ -25,17 +25,29 @@ When writing Airflow's documentation, you want to show a DAG rendered with the g
 
 ~~~markdown
 ```airflowdag
-from airflow.decorators import dag, task
+from airflow import DAG, Dataset
+from airflow.decorators import task
 from datetime import datetime
 
-@dag(schedule_interval='@daily', start_date=datetime(2022, 1, 1), catchup=False)
-def hello_world_dag():
+with DAG(
+    dag_id="hello_world_dag",
+    schedule=[Dataset("s3://dataset/example.csv")],
+    start_date=datetime(2022, 1, 1),
+    catchup=False,
+):
+
     @task
-    def some_example():
+    def print_hello():
         print("Hello")
 
-    some_example()
-dag = hello_world_dag()
+    @task
+    def print_world():
+        print("World")
+
+    hello = print_hello()
+    world = print_world()
+
+    hello >> world
 ```
 ~~~
 
