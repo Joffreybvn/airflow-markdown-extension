@@ -28,7 +28,9 @@ import ReactFlow, {
   Panel,
   useOnViewportChange,
   Viewport,
+  ControlButton,
 } from "reactflow";
+import { BiCollapse, BiExpand } from "react-icons/bi";
 
 import { useDatasets, useGraphData, useGridData } from "src/api";
 import useSelection from "src/dag/useSelection";
@@ -47,28 +49,40 @@ interface Props {
   openGroupIds: string[];
   onToggleGroups: (groupIds: string[]) => void;
   hoveredTaskState?: string | null;
+  isFullScreen?: boolean;
+  toggleFullScreen?: () => void;
+  graph_data: any;
+  dataset_data: any;
+  grid_data: any;
 }
 
 const dagId = getMetaValue("dag_id");
 
-const Graph = ({ openGroupIds, onToggleGroups, hoveredTaskState }: Props) => {
+const Graph = ({
+  openGroupIds,
+  onToggleGroups,
+  hoveredTaskState,
+  isFullScreen,
+  toggleFullScreen,
+  graph_data,
+  dataset_data,
+  grid_data
+}: Props) => {
   const graphRef = useRef(null);
-  const { data } = useGraphData();
+  const { data } = useGraphData({graph_data});
   const [arrange, setArrange] = useState(data?.arrange || "LR");
   const [hasRendered, setHasRendered] = useState(false);
   const [isZoomedOut, setIsZoomedOut] = useState(false);
 
   const {
     data: { dagRuns, groups },
-  } = useGridData();
+  } = useGridData({grid_data});
 
   useEffect(() => {
     setArrange(data?.arrange || "LR");
   }, [data?.arrange]);
 
-  const { data: datasetsCollection } = useDatasets({
-    dagIds: [dagId],
-  });
+  const { data: datasetsCollection } = useDatasets({dataset_data});
 
   const rawNodes =
     data?.nodes && datasetsCollection?.datasets?.length
@@ -230,7 +244,15 @@ const Graph = ({ openGroupIds, onToggleGroups, hoveredTaskState }: Props) => {
             </Box>
           </Panel>
           <Background />
-          <Controls showInteractive={false} />
+          <Controls showInteractive={false}>
+            <ControlButton
+              onClick={toggleFullScreen}
+              aria-label="Toggle full screen"
+              title="Toggle full screen"
+            >
+              {isFullScreen ? <BiCollapse /> : <BiExpand />}
+            </ControlButton>
+          </Controls>
           <MiniMap
             nodeStrokeWidth={15}
             nodeStrokeColor={(props) => nodeStrokeColor(props, colors)}

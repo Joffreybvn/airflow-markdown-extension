@@ -51,6 +51,9 @@ interface Props {
   hoveredTaskState?: string | null;
   isFullScreen?: boolean;
   toggleFullScreen?: () => void;
+  graph_data: any;
+  dataset_data: any;
+  grid_data: any;
 }
 
 const dagId = getMetaValue("dag_id");
@@ -61,24 +64,25 @@ const Graph = ({
   hoveredTaskState,
   isFullScreen,
   toggleFullScreen,
+  graph_data,
+  dataset_data,
+  grid_data
 }: Props) => {
   const graphRef = useRef(null);
-  const { data } = useGraphData();
+  const { data } = useGraphData({graph_data});
   const [arrange, setArrange] = useState(data?.arrange || "LR");
   const [hasRendered, setHasRendered] = useState(false);
   const [isZoomedOut, setIsZoomedOut] = useState(false);
 
   const {
     data: { dagRuns, groups },
-  } = useGridData();
+  } = useGridData({grid_data});
 
   useEffect(() => {
     setArrange(data?.arrange || "LR");
   }, [data?.arrange]);
 
-  const { data: datasetsCollection } = useDatasets({
-    dagIds: [dagId],
-  });
+  const { data: datasetsCollection } = useDatasets({dataset_data});
 
   const rawNodes =
     data?.nodes && datasetsCollection?.datasets?.length
@@ -204,11 +208,11 @@ const Graph = ({
   return (
     <Box
       ref={graphRef}
-      height={`calc(100% - ${offsetTop}px)`}
+      className={"airflow-graph"}
       borderWidth={1}
       borderColor="gray.200"
     >
-      {!!offsetTop && (
+      {(
         <ReactFlow
           nodes={nodes}
           edges={edges}
