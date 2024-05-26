@@ -1,17 +1,17 @@
-From 5f80143ce714846adb911cc6e4463e373fd695a3 Mon Sep 17 00:00:00 2001
-From: Joffrey Bienvenu <joffrey.bienvenu@infrabel.be>
-Date: Sun, 12 May 2024 17:10:37 +0200
-Subject: [PATCH] correctly display graph
+From 90e514e1db4543c26020ff95ef53b848211833d4 Mon Sep 17 00:00:00 2001
+From: Joffrey Bienvenu <joffreybvn@gmail.be>
+Date: Sun, 26 May 2024 15:40:48 +0200
+Subject: [PATCH 2/2] correctly display graph
 
 ---
  .../js/airflow/dag/details/graph/index.tsx                    | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx b/airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx
-index f558f17..4c4a07e 100644
+index 7d50474..8acf585 100644
 --- a/airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx
 +++ b/airflow_markdown_extension/js/airflow/dag/details/graph/index.tsx
-@@ -194,11 +194,11 @@ const Graph = ({ openGroupIds, onToggleGroups, hoveredTaskState }: Props) => {
+@@ -208,11 +208,11 @@ const Graph = ({
    return (
      <Box
        ref={graphRef}
