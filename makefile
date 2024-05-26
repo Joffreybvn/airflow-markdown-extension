@@ -17,3 +17,6 @@ patch:
 
 lint:
 	ruff format
+
+git-patch:
+	git format-patch -2 HEAD
