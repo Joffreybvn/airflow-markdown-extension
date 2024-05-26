@@ -11,7 +11,7 @@ import requests
 logger = getLogger(__name__)
 
 remote_path = (
-    "https://raw.githubusercontent.com/apache/airflow/main/airflow/www/static/js"
+    "https://raw.githubusercontent.com/apache/airflow/2.9.1/airflow/www/static/js"
 )
 local_path = "./airflow_markdown_extension/js/airflow"
 

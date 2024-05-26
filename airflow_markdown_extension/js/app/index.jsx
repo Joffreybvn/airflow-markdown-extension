@@ -57,7 +57,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const onToggleGroups = (groupIds) => {};
+const voidReturn = (input) => {};
 
 const InnerContainerRefWrapper = ({graph_data, dataset_data, grid_data}) => {
     const containerRef = useContainerRef();
@@ -70,8 +70,10 @@ const InnerContainerRefWrapper = ({graph_data, dataset_data, grid_data}) => {
                 <BrowserRouter>
                     <Graph
                         openGroupIds={[]}
-                        onToggleGroups={onToggleGroups}
+                        onToggleGroups={voidReturn}
                         hoveredTaskState={null}
+                        isFullScreen={false}
+                        toggleFullScreen={voidReturn}
                         graph_data={graph_data}
                         dataset_data={dataset_data}
                         grid_data={grid_data}
