@@ -19,9 +19,34 @@ Load the CSS and Javascript dependencies on your website:
 ```
 
 
+## Quick example
+
+When writing Airflow's documentation, you want to show a DAG rendered with the graph view. Use this markdown extension to write a DAG as follow:
+
+~~~markdown
+```airflowdag
+from airflow.decorators import dag, task
+from datetime import datetime
+
+@dag(schedule_interval='@daily', start_date=datetime(2022, 1, 1), catchup=False)
+def hello_world_dag():
+    @task
+    def some_example():
+        print("Hello")
+
+    some_example()
+dag = hello_world_dag()
+```
+~~~
+
+Which will be rendered in your documentation page like this:
+
+![](./docs/rendered_dag.png)
+
+
 ## Configuration
 
-## Mkdocs
+### Mkdocs
 
 To use this superfence with [MkDocs](https://www.mkdocs.org/), add the following to your `mkdocs.yaml`:
 
@@ -40,7 +65,7 @@ extra_javascript:
   - https://unpkg.com/airflow-markdown-extension/airflow_markdown_extension/js/dist/index.js
 ```
 
-## Standalone
+### Standalone
 
 To use this superfence standalone, create a Markdown parser configured like below. You also need to add the **CSS** and **Javascript** in the final HTML document.
 

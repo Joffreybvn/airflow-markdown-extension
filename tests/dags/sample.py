@@ -4,7 +4,7 @@ from datetime import datetime
 
 with DAG(
     dag_id="hello_world_dag",
-    schedule=[Dataset("s3://dataset/example.csv", extra={"different": "extras"})],
+    schedule=[Dataset("s3://dataset/example.csv")],
     start_date=datetime(2022, 1, 1),
     catchup=False,
 ):

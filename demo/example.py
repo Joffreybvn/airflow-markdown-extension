@@ -4,25 +4,29 @@ from airflow_markdown_extension.fences import fence_airflow_dag_format
 markdown_source = """
 # Hello World
 ```airflowdag
-from airflow.decorators import dag, task
+from airflow import DAG, Dataset
+from airflow.decorators import task
 from datetime import datetime
 
-@dag(schedule_interval='@daily', start_date=datetime(2022, 1, 1), catchup=False)
-def hello_world_dag():
+with DAG(
+    dag_id="hello_world_dag",
+    schedule=[Dataset("s3://dataset/example.csv")],
+    start_date=datetime(2022, 1, 1),
+    catchup=False,
+):
+
     @task
-    def some_example():
+    def print_hello():
         print("Hello")
 
     @task
     def print_world():
         print("World")
 
-    hello = some_example()
+    hello = print_hello()
     world = print_world()
 
     hello >> world
-
-dag = hello_world_dag()
 ```
 """
 
