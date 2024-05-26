@@ -59,7 +59,7 @@ const queryClient = new QueryClient({
 
 const onToggleGroups = (groupIds) => {};
 
-const InnerContainerRefWrapper = () => {
+const InnerContainerRefWrapper = ({graph_data, dataset_data, grid_data}) => {
     const containerRef = useContainerRef();
     return (
         <ChakraProvider
@@ -71,6 +71,10 @@ const InnerContainerRefWrapper = () => {
                     <Graph
                         openGroupIds={[]}
                         onToggleGroups={onToggleGroups}
+                        hoveredTaskState={null}
+                        graph_data={graph_data}
+                        dataset_data={dataset_data}
+                        grid_data={grid_data}
                     />
                 </BrowserRouter>
             </QueryClientProvider>
@@ -78,12 +82,16 @@ const InnerContainerRefWrapper = () => {
     )
 }
 
-export function AirflowGraph(elementId) {
+export function AirflowGraph(elementId, graph_data, dataset_data, grid_data) {
     const container = document.getElementById(elementId);
     ReactDOM.createRoot(container).render(
         <React.StrictMode>
             <ContainerRefProvider>
-                <InnerContainerRefWrapper/>
+                <InnerContainerRefWrapper
+                    graph_data={graph_data}
+                    dataset_data={dataset_data}
+                    grid_data={grid_data}
+                />
             </ContainerRefProvider>
         </React.StrictMode>,
     )

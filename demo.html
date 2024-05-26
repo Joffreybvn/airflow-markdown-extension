@@ -10,8 +10,13 @@
 <p>
         <link rel="stylesheet" crossorigin href="./airflow_markdown_extension/js/dist/airflow_graph.css">
         <script type="module" crossorigin src="./airflow_markdown_extension/js/dist/airflow_graph.js"></script>
-        <div id="ReactApp"></div>
-        <script type="module">window.AirflowGraph("ReactApp");</script>
+        <div id="cj1rm"></div>
+        <script type="module">
+            const graph_data = {"arrange":"LR","nodes":{"id":null,"value":{"label":null,"labelStyle":"fill:#000;","style":"fill:CornflowerBlue","rx":5,"ry":5,"clusterLabelPos":"top","tooltip":"","isMapped":false},"children":[{"id":"print_world","value":{"label":"print_world","labelStyle":"fill:#000;","style":"fill:#ffefeb;","rx":5,"ry":5}},{"id":"some_example","value":{"label":"some_example","labelStyle":"fill:#000;","style":"fill:#ffefeb;","rx":5,"ry":5}}]},"edges":[{"source_id":"some_example","target_id":"print_world"}]};
+            const dataset_data = {"datasets":[],"total_entries":0};
+            const grid_data = {"groups":{"children":[{"extra_links":[],"has_outlet_datasets":false,"id":"some_example","instances":[],"is_mapped":false,"label":"some_example","operator":"@task","trigger_rule":"all_success"},{"extra_links":[],"has_outlet_datasets":false,"id":"print_world","instances":[],"is_mapped":false,"label":"print_world","operator":"@task","trigger_rule":"all_success"}],"id":null,"instances":[],"label":null},"dag_runs":[],"ordering":["data_interval_end","execution_date"]};
+            window.AirflowGraph("cj1rm", graph_data, dataset_data, grid_data);
+        </script>
         </p>
   </body>
 </html>
